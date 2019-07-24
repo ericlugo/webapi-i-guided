@@ -24,6 +24,18 @@ server.get(`/hubs`, (request, response) => {
     });
 });
 
+server.get(`/hubs/:id`, (request, response) => {
+  const { id } = request.params;
+
+  db.findById(id)
+    .then((hub) => {
+      response.status(200).json(hub);
+    })
+    .catch((error) => {
+      response.status(500).json({ success: false, error });
+    });
+});
+
 server.post(`/hubs`, (request, response) => {
   const hubInfo = request.body;
 
